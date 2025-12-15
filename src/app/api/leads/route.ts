@@ -4,34 +4,34 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+
+    // Validate required fields
+    const { zipCode, concreteTypes, name, email, phone, timeline } = body;
+
+    if (!zipCode || !concreteTypes || !name || !email || !phone || !timeline) {
+      return NextResponse.json(
+        { error: 'Missing required fields' },
+        { status: 400 }
+      );
+    }
+
+    // Get the referrer to know which page they came from
+    const referer = request.headers.get('referer') || 'Direct';
+    const timestamp = new Date().toLocaleString('en-US', {
+      timeZone: 'America/Chicago',
+      dateStyle: 'full',
+      timeStyle: 'long'
+    });
+
+    // Send email notification via Resend
     try {
-        const body = await request.json();
-
-        // Validate required fields
-        const { zipCode, concreteTypes, name, email, phone, timeline } = body;
-
-        if (!zipCode || !concreteTypes || !name || !email || !phone || !timeline) {
-            return NextResponse.json(
-                { error: 'Missing required fields' },
-                { status: 400 }
-            );
-        }
-
-        // Get the referrer to know which page they came from
-        const referer = request.headers.get('referer') || 'Direct';
-        const timestamp = new Date().toLocaleString('en-US', {
-            timeZone: 'America/Chicago',
-            dateStyle: 'full',
-            timeStyle: 'long'
-        });
-
-        // Send email notification via Resend
-        try {
-            await resend.emails.send({
-                from: 'Concrete Leveling Leads <leads@aconcretelevelingnearme.com>',
-                to: ['morelyndon@pm.me'],
-                subject: `🚨 NEW LEAD: ${name} from ${zipCode}`,
-                html: `
+      await resend.emails.send({
+        from: 'Concrete Leveling Leads <onboarding@resend.dev>',
+        to: ['morelyndon@pm.me'],
+        subject: `🚨 NEW LEAD: ${name} from ${zipCode}`,
+        html: `
           <!DOCTYPE html>
           <html>
             <head>
@@ -160,7 +160,7 @@ export async function POST(request: NextRequest) {
             </body>
           </html>
         `,
-                text: `
+        text: `
 NEW CONCRETE LEVELING LEAD
 
 Name: ${name}
@@ -174,40 +174,40 @@ Submitted: ${timestamp}
 
 ${timeline === 'asap' ? '⚡ URGENT: This lead needs service ASAP!' : ''}
         `,
-            });
+      });
 
-            console.log('✅ Email notification sent successfully');
-        } catch (emailError) {
-            console.error('❌ Email notification failed:', emailError);
-            // Continue even if email fails - we still want to log the lead
-        }
-
-        // Log the lead (you can add database storage here later)
-        console.log('📋 New Lead Received:', {
-            name,
-            email,
-            phone,
-            zipCode,
-            concreteTypes,
-            timeline,
-            referer,
-            timestamp,
-        });
-
-        return NextResponse.json(
-            {
-                success: true,
-                message: 'Lead received successfully',
-                leadId: `LEAD-${Date.now()}`,
-            },
-            { status: 200 }
-        );
-
-    } catch (error) {
-        console.error('❌ Error processing lead:', error);
-        return NextResponse.json(
-            { error: 'Internal server error' },
-            { status: 500 }
-        );
+      console.log('✅ Email notification sent successfully');
+    } catch (emailError) {
+      console.error('❌ Email notification failed:', emailError);
+      // Continue even if email fails - we still want to log the lead
     }
+
+    // Log the lead (you can add database storage here later)
+    console.log('📋 New Lead Received:', {
+      name,
+      email,
+      phone,
+      zipCode,
+      concreteTypes,
+      timeline,
+      referer,
+      timestamp,
+    });
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: 'Lead received successfully',
+        leadId: `LEAD-${Date.now()}`,
+      },
+      { status: 200 }
+    );
+
+  } catch (error) {
+    console.error('❌ Error processing lead:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
 }
