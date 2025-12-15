@@ -1,9 +1,5 @@
 import { MetadataRoute } from 'next';
-
-const cities = [
-    'austin', 'houston', 'dallas', 'san-antonio', 'fort-worth',
-    'phoenix', 'los-angeles', 'chicago', 'miami', 'atlanta',
-];
+import { cities } from '@/data/cities';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://aconcretelevelingnearme.com';
@@ -18,13 +14,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
     ];
 
-    // City pages
+    // City pages - all of them!
     cities.forEach((city) => {
         routes.push({
-            url: `${baseUrl}/${city}`,
+            url: `${baseUrl}/${city.slug}`,
             lastModified: new Date(),
             changeFrequency: 'weekly',
-            priority: 0.8,
+            priority: 0.9, // High priority for city pages
         });
     });
 
