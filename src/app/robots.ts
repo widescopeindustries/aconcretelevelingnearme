@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
             userAgent: '*',
             allow: '/',
         },
-        sitemap: 'https://aconcretelevelingnearme.com/sitemap.xml',
+        sitemap: 'https://aconcretelevelingnearme.vercel.app/sitemap.xml',
     };
 }

@@ -20,7 +20,7 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "Concrete Leveling Near Me",
   description: "Professional concrete leveling services",
-  metadataBase: new URL('https://aconcretelevelingnearme.com'),
+  metadataBase: new URL('https://aconcretelevelingnearme.vercel.app'),
 };
 
 export default function RootLayout({
@@ -39,7 +39,7 @@ export default function RootLayout({
               "@type": "LocalBusiness",
               "name": "Concrete Leveling Near Me",
               "description": "Professional concrete leveling and repair services",
-              "url": "https://aconcretelevelingnearme.com",
+              "url": "https://aconcretelevelingnearme.vercel.app",
               "telephone": "1-800-CONCRETE",
               "priceRange": "$$",
               "areaServed": "United States",
