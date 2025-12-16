@@ -9,27 +9,33 @@ export const metadata: Metadata = {
 const blogPosts = [
     {
         slug: 'how-much-does-concrete-leveling-cost',
-        title: 'How Much Does Concrete Leveling Cost in 2024?',
+        title: 'How Much Does Concrete Leveling Cost in 2025?',
         excerpt: 'Complete breakdown of concrete leveling costs, including mudjacking vs foam injection pricing.',
         category: 'Cost Guides',
     },
     {
         slug: 'mudjacking-vs-foam-injection',
-        title: 'Mudjacking vs Foam Injection: Which is Better?',
+        title: 'Mudjacking vs Foam Injection: Which is Better in 2025?',
         excerpt: 'Compare the two main concrete leveling methods to find the best solution for your project.',
         category: 'Guides',
     },
     {
-        slug: 'signs-you-need-concrete-leveling',
-        title: '7 Signs You Need Concrete Leveling',
-        excerpt: 'Learn the warning signs that indicate your concrete needs professional leveling services.',
-        category: 'Tips',
+        slug: 'how-long-does-polyjacking-last',
+        title: 'How Long Does Polyjacking Last? 2025 Durability Guide',
+        excerpt: 'Learn the real lifespan of polyurethane foam concrete leveling and what affects its durability.',
+        category: 'Guides',
     },
     {
-        slug: 'diy-vs-professional-concrete-leveling',
-        title: 'DIY vs Professional Concrete Leveling: What You Need to Know',
-        excerpt: 'Should you attempt concrete leveling yourself or hire a pro? Here\'s what you need to consider.',
+        slug: 'is-concrete-leveling-diy',
+        title: 'Can You DIY Concrete Leveling? Why Pros Say No',
+        excerpt: 'Learn why concrete leveling is one home repair you should never attempt yourself.',
         category: 'Guides',
+    },
+    {
+        slug: 'signs-you-need-concrete-leveling',
+        title: '7 Warning Signs You Need Concrete Leveling',
+        excerpt: 'Learn the critical warning signs that indicate your concrete needs professional leveling services.',
+        category: 'Tips',
     },
 ];
 

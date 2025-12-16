@@ -36,15 +36,33 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "LocalBusiness",
+              "@type": "Organization",
               "name": "Concrete Leveling Near Me",
-              "description": "Professional concrete leveling and repair services",
+              "description": "The nation's leading concrete leveling and repair directory. Connecting homeowners with top-rated mudjacking and polyjacking experts.",
               "url": "https://aconcretelevelingnearme.vercel.app",
-              "telephone": "1-800-CONCRETE",
-              "priceRange": "$$",
-              "areaServed": "United States",
-              "serviceType": ["Concrete Leveling", "Mudjacking", "Polyurethane Foam Injection", "Slab Jacking"]
+              "logo": "https://aconcretelevelingnearme.vercel.app/logo.png",
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "US"
+              },
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "1-800-CONCRETE",
+                "contactType": "customer service"
+              }
             })
+          }}
+        />
+        {/* Google Analytics 4 */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLACEHOLDER"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-PLACEHOLDER');
+            `,
           }}
         />
       </head>

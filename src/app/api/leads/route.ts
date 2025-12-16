@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,11 +29,12 @@ export async function POST(request: NextRequest) {
 
     // Send email notification via Resend
     try {
-      await resend.emails.send({
-        from: 'Concrete Leveling Leads <onboarding@resend.dev>',
-        to: ['morelyndon@pm.me'],
-        subject: `🚨 NEW LEAD: ${name} from ${zipCode}`,
-        html: `
+      if (resend) {
+        await resend.emails.send({
+          from: 'Concrete Leveling Leads <onboarding@resend.dev>',
+          to: ['morelyndon@pm.me'],
+          subject: `🚨 NEW LEAD: ${name} from ${zipCode}`,
+          html: `
           <!DOCTYPE html>
           <html>
             <head>
@@ -160,7 +163,7 @@ export async function POST(request: NextRequest) {
             </body>
           </html>
         `,
-        text: `
+          text: `
 NEW CONCRETE LEVELING LEAD
 
 Name: ${name}
@@ -174,9 +177,12 @@ Submitted: ${timestamp}
 
 ${timeline === 'asap' ? '⚡ URGENT: This lead needs service ASAP!' : ''}
         `,
-      });
+        });
 
-      console.log('✅ Email notification sent successfully');
+        console.log('✅ Email notification sent successfully');
+      } else {
+        console.warn('⚠️ RESEND_API_KEY missing, skipping email notification');
+      }
     } catch (emailError) {
       console.error('❌ Email notification failed:', emailError);
       // Continue even if email fails - we still want to log the lead
