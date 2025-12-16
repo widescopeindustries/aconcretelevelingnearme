@@ -14,13 +14,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
     ];
 
-    // City pages - all of them!
+    // Blog posts
+    routes.push({
+        url: `${baseUrl}/blog/how-much-does-concrete-leveling-cost`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.8,
+    });
+
+    // City pages - all 170+ of them!
     cities.forEach((city) => {
         routes.push({
             url: `${baseUrl}/${city.slug}`,
             lastModified: new Date(),
             changeFrequency: 'weekly',
-            priority: 0.9, // High priority for city pages
+            priority: 0.9,
         });
     });
 
